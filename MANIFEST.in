@@ -1,0 +1,2 @@
+include README.rst requirements.txt distribute_setup.py 
+global-include *.yml

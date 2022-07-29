@@ -1,0 +1,59 @@
+# gator default configuration settings
+
+config_root: /etc/gator
+
+# lack of leading ~ or / makes these relative to config_root
+config_files:
+    main: [gator.yml, ~/.gator/gator.yml]
+    logging: [logging.yml, ~/.gator/logging.yml]
+    environments: [environments.yml, ~/.gator/environments.yml]
+
+# gator working dir (state, locks, etc)
+aminator_root: /var/gator
+# lack of leading ~ or / makes these relative to aminator_root
+volume_dir: volumes
+lock_dir: lock
+
+# thar be logfiles here!
+log_root: /var/log/gator
+
+plugins:
+    config_root: /etc/gator/plugins
+    entry_points:
+      blockdevice:
+        entry_point: gator.plugins.blockdevice
+        class: BlockDevicePluginManager
+      cloud:
+        entry_point: gator.plugins.cloud
+        class: CloudPluginManager
+      distro:
+        entry_point: gator.plugins.distro
+        class: DistroPluginManager
+      finalizer:
+        entry_point: gator.plugins.finalizer
+        class: FinalizerPluginManager
+      metrics:
+        entry_point: gator.plugins.metrics
+        class: MetricsPluginManager
+      provisioner:
+        entry_point: gator.plugins.provisioner
+        class: ProvisionerPluginManager
+      volume:
+        entry_point: gator.plugins.volume
+        class: VolumePluginManager
+
+context:
+  # used by some plugins when fetching resources
+  verify_https: false
+  package:
+    # AMI directory to store package files
+    dir: /tmp
+    # bake package file into AMI
+    preserve: False
+  ami:
+    tags: {}
+  snapshot:
+    tags: {}
+  web_log: {}
+  cloud: {}
+  volume: {}
